@@ -5,16 +5,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver.maximize_window()
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--window-size=1920,1080")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
     yield driver
     driver.quit()
-
-# @pytest.fixture
-# def driver():
-#     options = Options()
-#     options.add_argument("--headless=new")
-#     options.add_argument("-window-size=1920,1080")
-#     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-#     yield driver
-#     driver.quit()
